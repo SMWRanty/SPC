@@ -1,0 +1,1 @@
+include src/make.mk

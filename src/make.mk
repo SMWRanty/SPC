@@ -1,0 +1,1 @@
+SOURCE_FILES += src/FileFormat.cpp
