@@ -41,6 +41,42 @@ namespace Ranty::SPC
    Reserved reserved;
   };
 
+  class FileFormatID666
+  {
+  public:
+    enum class DefaultChannel: uint8_t
+    {
+      Enabled = 1,
+      Disabled = 0
+    };
+
+    enum class Emulator: uint8_t
+    {
+      Unknown = '0',
+      ZSNES = '1',
+      Snes9x = '2'
+    };
+    using SongTitle = char[32];
+    using GameTitle = char[32];
+    using Author = char[16];
+    using Comments = char[32];
+    using Date = char[11];
+    using SongLength = char[3];
+    using FadeLength = char[5];
+    using Artist = char[32];
+
+    SongTitle songTitle;
+    GameTitle gameTitle;
+    Author author;
+    Comments comments;
+    Date date;
+    SongLength songLength;
+    FadeLength fadeLength;
+    Artist artist;
+    DefaultChannel defaultChannel;
+    Emulator emulator;
+  };
+
   class FileFormat
   {
   public:
@@ -48,12 +84,16 @@ namespace Ranty::SPC
 
     using Header = FileFormatHeader;
     using Registers = FileFormatRegisters;
+    using ID666 = FileFormatID666;
     
     Header header;
     Registers registers;
+    ID666 id666;
   };
 
   #pragma pack(pop)
 }
 
 std::ostream& operator << (std::ostream& stream, Ranty::SPC::FileFormat::Header::ID666Tag tag);
+std::ostream& operator << (std::ostream& stream, Ranty::SPC::FileFormat::ID666::DefaultChannel defaultChannel);
+std::ostream& operator << (std::ostream& stream, Ranty::SPC::FileFormat::ID666::Emulator emulator);
